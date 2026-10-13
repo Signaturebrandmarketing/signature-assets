@@ -123,6 +123,28 @@ section.band{padding:0 0 clamp(24px,4vw,44px)}
 .total{margin-top:14px;font-size:15px;color:var(--muted)}
 .total b{color:var(--gold)}
 
+.team{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin:0;padding:0;list-style:none}
+.mate{border-radius:18px;padding:18px;background:var(--soft);border:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
+.mate.owner{border-color:rgba(201,169,97,.6);background:linear-gradient(160deg,rgba(201,169,97,.10),rgba(255,255,255,.02))}
+.mate.unassigned{border-style:dashed}
+.mate .top{display:flex;align-items:center;gap:12px}
+.mate .ava{width:52px;height:52px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#0B0B0B;border:2px solid var(--gold);font-family:var(--display);font-weight:700;font-size:19px;color:var(--gold-hi)}
+.mate.unassigned .ava{border-style:dashed;color:var(--muted);font-family:var(--body);font-weight:500;font-size:24px}
+.mate .nm{font-weight:700;font-size:16px;line-height:1.2}
+.mate .rl{display:block;font-size:12.5px;color:var(--muted);font-weight:400}
+.mate .book{display:flex;align-items:baseline;gap:8px}
+.mate .book b{font-family:var(--display);font-size:30px;line-height:1}
+.mate .book span{font-size:13.5px;color:var(--muted)}
+.bar{display:flex;gap:2px;height:10px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.06)}
+.bar i{display:block;height:100%}
+.mate .next{font-size:14px;color:var(--muted);margin:0}
+.mate .next b{color:var(--ink);font-weight:600}
+.mate a.go{margin-top:auto;font-size:13.5px;font-weight:600;color:var(--gold);text-decoration:none}
+.mate a.go:hover{color:var(--gold-hi)}
+.mate a.go:focus-visible{outline:3px solid var(--gold-hi);outline-offset:3px;border-radius:4px}
+.keys{display:flex;flex-wrap:wrap;gap:6px 16px;margin:16px 0 0;padding:0;list-style:none;font-size:12.5px;color:var(--muted)}
+.keys i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
 footer{padding:8px 0 32px;color:var(--muted);font-size:13px}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding-top:18px}
 
@@ -161,6 +183,15 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
 
   <aside class="panel" id="panel" aria-live="polite"></aside>
 </div>
+
+<section class="band" aria-labelledby="teamH">
+  <div class="wrap"><div class="card">
+    <h2 id="teamH" class="gold">Every agent's book, one screen</h2>
+    <p>Dana's whole team at a glance: who's carrying what, and where each book is moving or stuck.</p>
+    <ul class="team" id="team"></ul>
+    <ul class="keys" id="keys"></ul>
+  </div></div>
+</section>
 
 <section class="band" aria-labelledby="pipeH">
   <div class="wrap"><div class="card">
@@ -340,6 +371,33 @@ document.getElementById('core').addEventListener('click',()=>select(null,true));
 const pipeHref=esc(deskUrl('/opportunities/list'));
 document.getElementById('pipe').innerHTML=STAGES.map(s=>`<li><a href="${pipeHref}" target="${TARGET}" rel="noopener"><span class="st">${esc(s[0])}</span><span class="amt">${esc(s[2])}</span><span class="n">${s[1]} ${s[1]===1?'client':'clients'}</span></a></li>`).join('');
 document.getElementById('total').innerHTML='<b>17 open opportunities &middot; $41,700</b> on the board.';
+
+/* Dana's human team. Snapshot of the Book of Business board by owner (refresh with the counts above). */
+const STAGE_KEYS=[['Lead','#8A8F98'],['Quote','#F1DDA6'],['App Submitted','#C9A961'],['Underwriting','#A8894A'],['Issued','#7CE38B'],['Cross-Sell','#B07CFF']];
+const TEAM=[
+  {ini:'DW', name:'Dana Whitmore', role:'Owner', kind:'owner', book:'$24,000', deals:5, stages:{'Lead':1,'Quote':2,'Underwriting':1,'Issued':1},
+   next:"<b>2 quotes out</b> worth $9,600. Latasha Grant's IUL is the big one.", go:'Open the full board'},
+  {ini:'MC', name:'Marcus Cole', role:'Agent', book:'$6,900', deals:4, stages:{'Lead':2,'App Submitted':2},
+   next:"<b>2 applications in process.</b> Priscilla Okafor's prescription check is on day 6.", go:"See Marcus's book"},
+  {ini:'RW', name:'Renee Whitmore', role:'Agent', book:'$10,800', deals:4, stages:{'Underwriting':1,'Issued':1,'Cross-Sell':2},
+   next:"<b>2 cross-sell conversations queued.</b> Monica Sandoval's parents have no final expense yet.", go:"See Renee's book"},
+  {ini:'+', name:'New leads', role:'Waiting for an owner', kind:'unassigned', book:'$0', deals:4, stages:{'Lead':4},
+   next:'<b>4 website leads</b> from the chat and the booking page. Assign each one on the board.', go:'Assign them on the board'}
+];
+const boardHref=esc(deskUrl('/opportunities/list'));
+document.getElementById('team').innerHTML=TEAM.map(m=>{
+  const bar=STAGE_KEYS.filter(k=>m.stages[k[0]]).map(k=>`<i style="flex:${m.stages[k[0]]};background:${k[1]}" title="${esc(k[0])}: ${m.stages[k[0]]}"></i>`).join('');
+  const label=STAGE_KEYS.filter(k=>m.stages[k[0]]).map(k=>`${m.stages[k[0]]} ${k[0]}`).join(', ');
+  return `<li class="mate ${m.kind||''}">
+    <div class="top"><span class="ava" aria-hidden="true">${esc(m.ini)}</span><span class="nm">${esc(m.name)}<span class="rl">${esc(m.role)}</span></span></div>
+    <div class="book"><b class="gold">${esc(m.book)}</b><span>${m.deals} ${m.deals===1?'deal':'deals'}</span></div>
+    <div class="bar" role="img" aria-label="${esc(label)}">${bar}</div>
+    <p class="next">${m.next}</p>
+    <a class="go" href="${boardHref}" target="${TARGET}" rel="noopener">${esc(m.go)} &rarr;</a>
+  </li>`;
+}).join('');
+document.getElementById('keys').innerHTML=STAGE_KEYS.map(k=>`<li><i style="background:${k[1]}"></i>${esc(k[0])}</li>`).join('');
+
 
 function sampleHTML(s){
   return s.map(b=>{
