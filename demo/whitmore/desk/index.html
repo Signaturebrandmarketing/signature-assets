@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Whitmore's Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0B0B; --bg2:#141210; --panel:#161411;
+  --gold-hi:#F1DDA6; --gold:#C9A961; --gold-lo:#8F7337;
+  --ink:#F5EFE4; --muted:rgba(245,239,228,.68); --line:rgba(201,169,97,.22); --soft:rgba(255,255,255,.05);
+  --display:"Playfair Display",Georgia,serif;
+  --body:"Inter",-apple-system,"Segoe UI",system-ui,sans-serif;
+  --accent:var(--gold);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;
+  background:
+    radial-gradient(800px 600px at 85% 30%, rgba(201,169,97,.10), transparent 60%),
+    radial-gradient(700px 520px at 10% 0%, rgba(201,169,97,.08), transparent 60%),
+    linear-gradient(170deg,var(--bg) 0%,var(--bg2) 100%);}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,3.5vw,36px)}
+.gold{background:linear-gradient(180deg,var(--gold-hi) 0%,var(--gold) 55%,var(--gold-lo) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+header{padding:clamp(22px,4vw,40px) 0 0;text-align:center}
+.brand{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.brand span{color:var(--muted);letter-spacing:.18em}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(36px,5.6vw,64px);line-height:1.02;margin:14px auto 10px;letter-spacing:-.01em}
+h1 i{font-weight:600}
+.lede{max-width:56ch;margin:0 auto;font-size:clamp(15.5px,1.5vw,18px);color:var(--muted)}
+.lede strong{color:var(--ink);font-weight:600}
+
+.stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(18px,3.5vw,44px);align-items:start;padding-top:clamp(20px,3.5vw,40px);padding-bottom:clamp(24px,4vw,44px)}
+.stage>*{min-width:0}
+.orbit{position:relative;width:100%;aspect-ratio:1/1;max-width:580px;margin:0 auto}
+.orbit svg.wires{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.wire{stroke:rgba(201,169,97,.32);stroke-width:.35;transition:stroke .3s,stroke-width .3s}
+.wire.on{stroke:var(--accent);stroke-width:.8;filter:drop-shadow(0 0 .8px var(--accent))}
+.pulse{fill:#fff;opacity:0;filter:drop-shadow(0 0 1.2px var(--accent))}
+.pulse.on{opacity:1}
+
+.core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:31%;aspect-ratio:1/1;border-radius:50%;border:0;padding:0;cursor:pointer;background:none;color:var(--ink);font:inherit}
+.core .disc{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 50% 40%,#2A2418 0%,#100E0B 70%);border:2px solid var(--gold);box-shadow:0 0 0 6px rgba(201,169,97,.08),0 0 40px rgba(201,169,97,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.core .ini{font-family:var(--display);font-weight:700;font-size:clamp(26px,4.2vw,46px);line-height:1}
+.core .cn{font-weight:600;font-size:clamp(11px,1.3vw,14px);margin-top:4px}
+.core .cr{font-size:clamp(9.5px,1.05vw,12px);color:var(--muted)}
+.core:focus-visible{outline:3px solid var(--gold-hi);outline-offset:4px}
+
+.agent-btn{position:absolute;transform:translate(-50%,-50%);width:21%;background:none;border:0;padding:0;cursor:pointer;color:var(--ink);font:inherit;text-align:center;border-radius:16px;-webkit-tap-highlight-color:transparent}
+.agent-btn .face{display:block;width:100%;aspect-ratio:1/1;border-radius:50%;transition:transform .25s ease,filter .25s ease;filter:drop-shadow(0 8px 16px rgba(0,0,0,.6))}
+.agent-btn .nm{display:block;font-weight:700;font-size:clamp(12.5px,1.55vw,16px);line-height:1.1;margin-top:6px}
+.agent-btn .rl{display:block;font-size:clamp(10px,1.1vw,12.5px);color:var(--muted);line-height:1.2}
+.agent-btn .ct{position:absolute;top:2%;right:4%;min-width:28%;padding:2px 6px;border-radius:999px;background:var(--c);color:#0B0B0B;font-weight:700;font-size:clamp(10px,1.1vw,12.5px);line-height:1.5;box-shadow:0 2px 10px rgba(0,0,0,.5)}
+.agent-btn:hover .face{transform:scale(1.05)}
+.agent-btn[aria-pressed="true"] .face{transform:scale(1.1);filter:drop-shadow(0 0 14px var(--c)) drop-shadow(0 0 4px var(--c))}
+.agent-btn[aria-pressed="true"] .nm{color:var(--c)}
+.agent-btn:focus-visible{outline:3px solid var(--gold-hi);outline-offset:4px}
+.orbit.has-sel .agent-btn[aria-pressed="false"]{opacity:.45}
+.orbit.has-sel .agent-btn[aria-pressed="false"]:hover{opacity:1}
+
+.panel{background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.015));border:1px solid rgba(201,169,97,.55);border-radius:24px;padding:clamp(20px,2.6vw,30px);position:sticky;top:16px;min-height:440px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.panel h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,3.2vw,38px);line-height:1;margin:0}
+.who{display:flex;gap:14px;align-items:center;margin-bottom:12px}
+.who .mini{width:76px;flex:none}
+.tag{display:inline-block;font-size:13.5px;font-weight:600;color:var(--c);margin-top:6px}
+.one{font-size:16.5px;margin:0 0 16px;max-width:48ch}
+.statrow{display:flex;align-items:baseline;gap:12px;padding:12px 16px;border-radius:14px;background:color-mix(in srgb,var(--c) 10%,transparent);border:1px solid color-mix(in srgb,var(--c) 45%,transparent);margin-bottom:16px}
+.statrow b{font-family:var(--display);font-size:34px;line-height:1;color:var(--c)}
+.statrow span{color:var(--muted);font-size:14.5px}
+.panel h3{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:0 0 8px;color:var(--gold)}
+ol.steps{margin:0 0 16px;padding:0;list-style:none;counter-reset:s}
+ol.steps li{counter-increment:s;position:relative;padding-left:34px;margin-bottom:8px;font-size:15px;color:var(--muted)}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:22px;height:22px;border-radius:50%;border:1px solid var(--c);color:var(--c);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.sample{border-top:1px solid var(--line);padding-top:14px;margin-top:4px}
+.cap{font-size:13px;color:var(--muted);margin:0 0 8px}
+.msg{border-radius:16px;padding:10px 14px;font-size:14.5px;max-width:46ch;margin-bottom:8px}
+.msg.out{background:color-mix(in srgb,var(--c) 18%,#1a1814);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);border-radius:16px 16px 16px 4px}
+.msg.in{background:#24211c;border:1px solid rgba(255,255,255,.1);border-radius:16px 16px 4px 16px;margin-left:auto}
+.task{border-left:3px solid var(--c);background:var(--soft);padding:10px 14px;border-radius:0 12px 12px 0;font-size:14.5px}
+.task b{display:block;margin-bottom:4px}
+.task span{color:var(--muted)}
+.note{border-left:3px solid var(--c);background:var(--soft);padding:10px 14px;border-radius:0 12px 12px 0;font-size:14.5px}
+.tl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:0 0 4px;padding:0;list-style:none}
+.tl li{border-radius:12px;padding:8px 6px;text-align:center;background:var(--soft);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);font-size:12.5px;color:var(--muted)}
+.tl li b{display:block;color:var(--c);font-size:13px}
+.wont{margin:14px 0 0;font-size:14px;color:var(--muted)}
+.wont b{color:var(--ink)}
+.open{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:11px 20px;border-radius:999px;background:var(--gold);color:#0B0B0B;font-weight:700;font-size:14.5px;text-decoration:none;box-shadow:0 8px 24px rgba(201,169,97,.25)}
+.open:hover{background:var(--gold-hi)}
+.open:focus-visible{outline:3px solid var(--gold-hi);outline-offset:3px}
+.empty p{color:var(--muted);max-width:46ch}
+.motto{font-family:var(--display);font-style:italic;font-weight:600;font-size:22px;margin-top:18px;line-height:1.3}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin:16px 0 0;padding:0;list-style:none;font-size:14px;color:var(--muted)}
+.legend b{color:var(--ink);font-weight:600}
+
+@media (prefers-reduced-motion:no-preference){
+  .panel-body.in{animation:rise .35s ease}
+  @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .pulse.on{animation:travel 1.6s ease-in-out infinite}
+  .core .disc{animation:breathe 4s ease-in-out infinite}
+  @keyframes breathe{50%{box-shadow:0 0 0 10px rgba(201,169,97,.05),0 0 56px rgba(201,169,97,.35)}}
+}
+@keyframes travel{0%{offset-distance:0%}100%{offset-distance:100%}}
+
+section.band{padding:0 0 clamp(24px,4vw,44px)}
+.card{background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.01));border:1px solid var(--line);border-radius:24px;padding:clamp(20px,3vw,32px)}
+.card h2{font-family:var(--display);font-weight:700;font-size:clamp(24px,2.8vw,32px);line-height:1.1;margin:0 0 6px}
+.card > p{color:var(--muted);margin:0 0 20px;max-width:62ch}
+.pipe-scroll{overflow-x:auto;padding:4px 2px}
+.pipe{display:grid;grid-template-columns:repeat(6,minmax(128px,1fr));gap:10px;min-width:800px;list-style:none;margin:0;padding:0}
+.pipe a{display:block;text-decoration:none;color:var(--ink);padding:14px;border-radius:14px;background:var(--soft);border:1px solid var(--line);border-top:3px solid var(--gold);transition:background .2s}
+.pipe a:hover{background:rgba(255,255,255,.09)}
+.pipe a:focus-visible{outline:3px solid var(--gold-hi);outline-offset:3px}
+.pipe .st{display:block;font-weight:600;font-size:14.5px}
+.pipe .amt{display:block;font-family:var(--display);font-weight:700;font-size:24px;margin:2px 0}
+.pipe .n{display:block;font-size:13px;color:var(--muted)}
+.total{margin-top:14px;font-size:15px;color:var(--muted)}
+.total b{color:var(--gold)}
+
+footer{padding:8px 0 32px;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding-top:18px}
+
+@media (max-width:900px){
+  .stage{grid-template-columns:1fr}
+  .panel{position:static;min-height:0}
+}
+@media (max-width:560px){
+  .agent-btn{width:23%}
+  .agent-btn .rl{display:none}
+  .tl{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .legend{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="brand">Signature Agent OS <span>&middot; Built for Whitmore Insurance Group</span></div>
+  <h1><span class="gold">Whitmore's</span> <i class="gold">Desk</i></h1>
+  <p class="lede">Six AI teammates run the follow-up so nothing waits on Dana to remember. <strong>Tap anyone on the team to see what they handle.</strong></p>
+</header>
+
+<main>
+<div class="wrap stage">
+  <div class="orbit" id="orbit">
+    <svg class="wires" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="46.6" fill="none" stroke="rgba(201,169,97,.4)" stroke-width=".25" stroke-dasharray="1 1.2"/>
+      <g id="wires"></g>
+      <circle id="pulse" class="pulse" r=".9" cx="0" cy="0"/>
+    </svg>
+    <button class="core" id="core" type="button" aria-label="Dana Whitmore, agency owner. Show the team overview.">
+      <span class="disc"><span class="ini gold">DW</span><span class="cn">Dana Whitmore</span><span class="cr">Agency owner</span></span>
+    </button>
+    <div id="agents"></div>
+  </div>
+
+  <aside class="panel" id="panel" aria-live="polite"></aside>
+</div>
+
+<section class="band" aria-labelledby="pipeH">
+  <div class="wrap"><div class="card">
+    <h2 id="pipeH" class="gold">Where every client is right now</h2>
+    <p>The Book of Business board. Tap any stage to open the live board.</p>
+    <div class="pipe-scroll"><ol class="pipe" id="pipe"></ol></div>
+    <p class="total" id="total"></p>
+  </div></div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Whitmore Insurance Group is a demo agency. Every client shown is fictional, and teammate names are demo personas.</span>
+    <span class="gold" style="font-family:var(--display);font-weight:700">Built on Signature Agent OS</span>
+  </div>
+</footer>
+
+<script>
+/* Which sub-account the "Open in the Desk" links point at. Default: Whitmore (demo). Override with ?loc=<locationId>. */
+const LOC = new URLSearchParams(location.search).get('loc') || 'tlAsfMZZ2xYZwVpf9I6r';
+const IN_FRAME = window.top !== window.self;
+const APP = (function(){
+  const ok = o => /^https:\/\/(app\.gohighlevel\.com|app\.signaturebrandmarketing\.com|app\.leadconnectorhq\.com)$/.test(o);
+  try { if (location.ancestorOrigins && location.ancestorOrigins.length && ok(location.ancestorOrigins[0])) return location.ancestorOrigins[0]; } catch(e){}
+  try { if (document.referrer) { const o = new URL(document.referrer).origin; if (ok(o)) return o; } } catch(e){}
+  return 'https://app.signaturebrandmarketing.com';
+})();
+const deskUrl = p => APP + '/v2/location/' + LOC + p;
+const TARGET = IN_FRAME ? '_top' : '_blank';
+
+const AGENTS = [
+  { id:'avery', name:'Avery', role:'Front Desk', nick:'website chat, day and night', color:'#3FD8FF', eyes:'dots', top:'headset', icon:'chat',
+    count:'7', stat:'7', statLabel:'website chats handled in October',
+    one:"Answers the website chat around the clock, finds out what the visitor needs, and offers real Coverage Review times off Dana's calendar.",
+    steps:["A visitor opens the chat on Whitmore's website","Avery answers in Dana's voice and asks what they need covered","Offers open Coverage Review times and books the one they pick"],
+    sample:[{t:'cap',v:'Tuesday, 9:04 PM'},
+            {t:'in',v:'do you do final expense? my mom is 72 and has diabetes'},
+            {t:'out',v:"We do. Final expense is one of the main things we help families with, and there are carriers that work with people in their 70s who have diabetes. Every case is subject to underwriting, so the best next step is a free 15-minute Coverage Review with Dana. Want me to pull up some times?"}],
+    wont:['quote a price or promise an approval','give medical, legal or tax advice','pretend to be Dana (it says it is her assistant)'],
+    link:['Open the chat assistant','/ai-agents/conversation-ai'] },
+
+  { id:'wes', name:'Wes', role:'New Lead Welcome', nick:'the first five touches', color:'#7CE38B', eyes:'ring', top:'antenna', icon:'plane',
+    count:'5', stat:'5', statLabel:'new leads welcomed',
+    one:'The second a lead lands on the board, Wes starts a five-touch welcome so nobody sits waiting for a reply.',
+    timeline:[['Now','Text'],['10 min','Email'],['Day 2','Text'],['Day 4','Email'],['Day 7','Text']],
+    steps:['Starts the moment a new lead lands in the Lead stage',"Every message is written by the Brain, in Dana's voice",'Stops the second they reply or move to Quote, and hands Dana the ball'],
+    sample:[{t:'cap',v:'Touch 1, a text the minute they land'},
+            {t:'out',v:"Hi Marcus, it's Dana with Whitmore Insurance. Thanks for reaching out about term life. I'd love to make this easy: want to grab 15 minutes this week so I can show you a couple of options?"}],
+    wont:['keep messaging someone who replied','keep going once a lead moves to Quote'],
+    link:['Open the 5-touch welcome','/automation/workflow/bb53d7b0-be43-4725-bf11-c13dcb2bc814'] },
+
+  { id:'rory', name:'Rory', role:'Booking Rescue', nick:'catches the ones who almost booked', color:'#FF8A5B', eyes:'oval', top:'ears', icon:'clip',
+    count:'3', stat:'3', statLabel:'chat leads caught before they went cold',
+    one:"When someone starts booking in the chat and leaves before picking a time, Rory puts a call on Dana's list and starts their follow-up.",
+    steps:['Spots a chat lead who left without booking',"Puts a call task on Dana's list for within the hour",'Starts the 5-touch follow-up so they hear back either way'],
+    sample:[{t:'cap',v:"On Dana's task list"},
+            {t:'task',b:'Call Derrick: dropped mid-booking on the website chat',v:'They started booking a Coverage Review in the website chat, left their phone number, and stopped before confirming a time. Call them within the hour: they were ready to talk.'}],
+    wont:['let a warm chat go quiet','call or text anyone who did not leave their number'],
+    link:['Open the rescue workflow','/automation/workflow/11279410-a82f-4e24-bf4b-080a8a9a32c1'] },
+
+  { id:'cal', name:'Cal', role:'Confirmations & Reminders', nick:'gets them to the call', color:'#5B8CFF', eyes:'bar', top:'headset', icon:'cal',
+    count:'2', stat:'2', statLabel:'Coverage Reviews booked and confirmed',
+    one:'Every time someone books a Coverage Review, Cal confirms it, schedules the reminders and puts them on the board.',
+    steps:['They pick a time on the Coverage Review page','They become a contact, matched to their record if they already exist','Confirmation now, reminders before the call, and a card in Lead marked "Website booking"'],
+    sample:[{t:'cap',v:'Sample confirmation text'},
+            {t:'out',v:"Hi Tasha, you're booked for a 15-minute Coverage Review with Dana Whitmore. You'll get a reminder before we talk. Need to move it? Just reply here."}],
+    wont:['double-book Dana','let an appointment sneak up on anyone'],
+    link:['Open confirmations & reminders','/automation/workflow/4a672e47-fad1-4dd2-9f95-b69c104e0658'] },
+
+  { id:'nora', name:'Nora', role:'No-Show Rebook', nick:'chases the rebook, not silence', color:'#FF5FA8', eyes:'arc', top:'antenna', icon:'loop',
+    count:'0', stat:'0', statLabel:'no-shows this month. Standing by.',
+    one:'If someone misses their Coverage Review, Nora follows up to rebook instead of letting it go quiet.',
+    steps:['An appointment is marked as a no-show','Nora sends a friendly note with a link to pick a new time','When they rebook, Cal takes it from there'],
+    sample:[{t:'cap',v:'Sample rebook text'},
+            {t:'out',v:"Hi Robert, sorry we missed you today. Life happens! Here's my calendar to grab a new time that works better."}],
+    wont:['guilt anyone for missing','give up after one try'],
+    link:['Open the no-show rebook','/automation/workflow/f9f26085-f107-441b-9e94-c6d124fa8137'] },
+
+  { id:'bo', name:'Bo', role:'Book of Business', nick:'keeps the board honest', color:'#B07CFF', eyes:'pixel', top:'ears', icon:'board',
+    count:'17', stat:'$41.7K', statLabel:'in 17 open opportunities on the board',
+    one:"Every lead, quote, application and policy on one screen, so Dana sees who's moving and who's stuck.",
+    steps:['Chats and bookings land in Lead on their own','Moving a card to Lead starts Wes. Moving it to Quote stops him','Issued clients roll into Cross-Sell, so the next conversation is already queued'],
+    sample:[{t:'cap',v:'Try it live'},
+            {t:'note',v:'Drag any card back to Lead. The welcome starts in seconds, without anyone touching it.'}],
+    wont:['lose a lead in someone\'s inbox','hide who owns what'],
+    link:['Open the board','/opportunities/list'] }
+];
+
+const STAGES = [['Lead',7,'$3,000'],['Quote',2,'$9,600'],['App Submitted',2,'$3,900'],['Underwriting',2,'$9,600'],['Issued',2,'$11,100'],['Cross-Sell',2,'$4,500']];
+
+const ICONS = {
+  chat:'<path d="M88 89.5 h16 v10 h-9 l-4 4 v-4 h-3 z"/>',
+  plane:'<path d="M88 97 L105 89 L99 105 L95 100 Z M95 100 L105 89"/>',
+  clip:'<rect x="89.5" y="88" width="13" height="16" rx="2"/><path d="M93 96.5 l2.4 2.4 l4.4 -4.8"/>',
+  cal:'<rect x="88.5" y="89.5" width="15" height="13" rx="2"/><path d="M88.5 93.5 h15 M92 88 v3 M100 88 v3 M93 98 l2 2 l4 -4"/>',
+  loop:'<path d="M89.5 95 a6.5 6.5 0 0 1 11.5 -3.5 M101 88 v3.8 h-3.8 M102.5 97 a6.5 6.5 0 0 1 -11.5 3.5 M91 104 v-3.8 h3.8"/>',
+  board:'<rect x="88" y="89" width="4.5" height="14" rx="1"/><rect x="93.75" y="89" width="4.5" height="10" rx="1"/><rect x="99.5" y="89" width="4.5" height="7" rx="1"/>'
+};
+
+function eyesSVG(a){
+  const c=a.color;
+  switch(a.eyes){
+    case 'dots': return `<circle cx="52" cy="53" r="3.8" fill="${c}"/><circle cx="68" cy="53" r="3.8" fill="${c}"/><circle cx="53" cy="52" r="1.1" fill="#fff"/><circle cx="69" cy="52" r="1.1" fill="#fff"/>`;
+    case 'ring': return `<g fill="none" stroke="${c}" stroke-width="2"><circle cx="52" cy="53" r="4.4"/><circle cx="68" cy="53" r="4.4"/></g><circle cx="52" cy="53" r="1.6" fill="${c}"/><circle cx="68" cy="53" r="1.6" fill="${c}"/>`;
+    case 'oval': return `<ellipse cx="52" cy="53" rx="3.2" ry="4.6" fill="${c}"/><ellipse cx="68" cy="53" rx="3.2" ry="4.6" fill="${c}"/><circle cx="53" cy="51.5" r="1" fill="#fff"/><circle cx="69" cy="51.5" r="1" fill="#fff"/>`;
+    case 'bar': return `<rect x="45" y="50.5" width="30" height="5" rx="2.5" fill="${c}"/><rect x="56" y="51.5" width="8" height="3" rx="1.5" fill="#fff" opacity=".85"/>`;
+    case 'arc': return `<g fill="none" stroke="${c}" stroke-width="2.6" stroke-linecap="round"><path d="M47.5 55 q4.5 -6 9 0"/><path d="M63.5 55 q4.5 -6 9 0"/></g>`;
+    case 'pixel': { let o=''; [[48,49],[51.5,49],[48,52.5],[51.5,52.5],[48,56],[51.5,56],[64.5,49],[68,49],[64.5,52.5],[68,52.5],[64.5,56],[68,56]].forEach(p=>o+=`<rect x="${p[0]}" y="${p[1]}" width="3" height="3" rx=".6" fill="${c}"/>`); return o; }
+  }
+  return '';
+}
+function topSVG(a,u){
+  const c=a.color;
+  if(a.top==='antenna') return `<path d="M60 31 V19" stroke="url(#ch-${u})" stroke-width="2.4"/><circle cx="60" cy="17" r="3.4" fill="${c}" filter="url(#gl-${u})"/>`;
+  if(a.top==='headset') return `<path d="M33 54 Q33 22 60 22 Q87 22 87 54" fill="none" stroke="#151515" stroke-width="4.5" stroke-linecap="round"/><path d="M33 54 Q33 22 60 22 Q87 22 87 54" fill="none" stroke="${c}" stroke-width=".9" opacity=".8"/><path d="M34 60 q1 12 14 12" fill="none" stroke="#151515" stroke-width="2.4" stroke-linecap="round"/><circle cx="49" cy="72" r="2.4" fill="${c}" filter="url(#gl-${u})"/>`;
+  return `<path d="M36 40 l-6 -8" stroke="url(#ch-${u})" stroke-width="2.4" stroke-linecap="round"/><path d="M84 40 l6 -8" stroke="url(#ch-${u})" stroke-width="2.4" stroke-linecap="round"/><circle cx="29.5" cy="31.5" r="2.2" fill="${c}" filter="url(#gl-${u})"/><circle cx="90.5" cy="31.5" r="2.2" fill="${c}" filter="url(#gl-${u})"/>`;
+}
+function avatar(a,uid){
+  const u=a.id+'-'+uid, c=a.color;
+  return `<svg viewBox="0 0 120 120" class="face" role="img" aria-label="${a.name}, ${a.role}">
+    <defs>
+      <clipPath id="cp-${u}"><circle cx="60" cy="60" r="56"/></clipPath>
+      <radialGradient id="bg-${u}" cx=".5" cy=".42" r=".65"><stop offset="0" stop-color="${c}" stop-opacity=".45"/><stop offset=".55" stop-color="#1D1A15"/><stop offset="1" stop-color="#0B0B0B"/></radialGradient>
+      <linearGradient id="ch-${u}" x1="0" y1="0" x2=".3" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".45" stop-color="#CFCAC0"/><stop offset="1" stop-color="#6F6A60"/></linearGradient>
+      <linearGradient id="gd-${u}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F1DDA6"/><stop offset=".5" stop-color="#C9A961"/><stop offset="1" stop-color="#7D6330"/></linearGradient>
+      <filter id="gl-${u}" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <circle cx="60" cy="60" r="56" fill="url(#bg-${u})"/>
+    <g clip-path="url(#cp-${u})">
+      <g stroke="${c}" stroke-width=".7" fill="none" opacity=".3"><path d="M6 30 h18 l6 6 h10"/><path d="M114 44 h-14 l-6 -6 h-6"/><path d="M8 78 h14 l5 -5"/></g>
+      <path d="M22 122 Q24 90 60 87 Q96 90 98 122 Z" fill="url(#ch-${u})"/>
+      <path d="M40 97 Q60 91 80 97 L77 122 H43 Z" fill="#141414"/>
+      <path d="M40 97 Q60 91 80 97" fill="none" stroke="${c}" stroke-width="1.3" filter="url(#gl-${u})"/>
+      <text x="60" y="113" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="9" fill="${c}" filter="url(#gl-${u})">AI</text>
+      <rect x="53" y="74" width="14" height="15" rx="4" fill="#3A3833"/>
+      ${topSVG(a,u)}
+      <rect x="35" y="30" width="50" height="47" rx="19" fill="url(#ch-${u})"/>
+      <rect x="31" y="47" width="7" height="14" rx="3.5" fill="#151515"/><rect x="82" y="47" width="7" height="14" rx="3.5" fill="#151515"/>
+      <rect x="32.5" y="51" width="4" height="6" rx="2" fill="${c}" filter="url(#gl-${u})"/><rect x="83.5" y="51" width="4" height="6" rx="2" fill="${c}" filter="url(#gl-${u})"/>
+      <rect x="40" y="40" width="40" height="27" rx="12" fill="#0B0B0B" stroke="${c}" stroke-opacity=".55" stroke-width="1"/>
+      <path d="M44 43 q8 -2.5 18 -1" stroke="#fff" stroke-opacity=".22" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <g filter="url(#gl-${u})">${eyesSVG(a)}</g>
+      <path d="M55 62 h10" stroke="${c}" stroke-width="1.4" stroke-linecap="round" opacity=".8"/>
+      <rect x="86" y="68" width="24" height="20" rx="5" fill="${c}" fill-opacity=".14" stroke="${c}" stroke-width="1"/>
+      <g fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" filter="url(#gl-${u})" transform="translate(98 78) scale(.62) translate(-96 -96)">${ICONS[a.icon]}</g>
+    </g>
+    <circle cx="60" cy="60" r="56" fill="none" stroke="url(#gd-${u})" stroke-width="3.6"/>
+  </svg>`;
+}
+
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+const orbit=document.getElementById('orbit'), agentsEl=document.getElementById('agents'), wiresEl=document.getElementById('wires');
+const panel=document.getElementById('panel'), pulse=document.getElementById('pulse');
+const R=35.5, CORE=15.5;
+let current=null;
+
+AGENTS.forEach((a,i)=>{
+  const ang=(-90+i*60)*Math.PI/180;
+  const x=50+R*Math.cos(ang), y=50+R*Math.sin(ang);
+  const ex=50+CORE*Math.cos(ang), ey=50+CORE*Math.sin(ang);
+  const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+  const wx=50+(R-10.5)*Math.cos(ang), wy=50+(R-10.5)*Math.sin(ang);
+  line.setAttribute('x1',ex);line.setAttribute('y1',ey);line.setAttribute('x2',wx);line.setAttribute('y2',wy);
+  line.setAttribute('class','wire');line.dataset.id=a.id;wiresEl.appendChild(line);
+  a.path=`M${(50+(R-9)*Math.cos(ang)).toFixed(2)} ${(50+(R-9)*Math.sin(ang)).toFixed(2)} L${ex.toFixed(2)} ${ey.toFixed(2)}`;
+  const b=document.createElement('button');
+  b.className='agent-btn';b.type='button';
+  b.style.left=x+'%';b.style.top=y+'%';b.style.setProperty('--c',a.color);
+  b.setAttribute('aria-pressed','false');b.dataset.id=a.id;
+  b.innerHTML=avatar(a,'o')+`<span class="ct" aria-hidden="true">${esc(a.count)}</span><span class="nm">${esc(a.name)}</span><span class="rl">${esc(a.role)}</span>`;
+  b.addEventListener('click',()=>select(current===a.id?null:a.id,true));
+  agentsEl.appendChild(b);
+});
+document.getElementById('core').addEventListener('click',()=>select(null,true));
+
+const pipeHref=esc(deskUrl('/opportunities/list'));
+document.getElementById('pipe').innerHTML=STAGES.map(s=>`<li><a href="${pipeHref}" target="${TARGET}" rel="noopener"><span class="st">${esc(s[0])}</span><span class="amt">${esc(s[2])}</span><span class="n">${s[1]} ${s[1]===1?'client':'clients'}</span></a></li>`).join('');
+document.getElementById('total').innerHTML='<b>17 open opportunities &middot; $41,700</b> on the board.';
+
+function sampleHTML(s){
+  return s.map(b=>{
+    if(b.t==='cap') return `<p class="cap">${esc(b.v)}</p>`;
+    if(b.t==='in') return `<div class="msg in">${esc(b.v)}</div>`;
+    if(b.t==='out') return `<div class="msg out">${esc(b.v)}</div>`;
+    if(b.t==='task') return `<div class="task"><b>${esc(b.b)}</b><span>${esc(b.v)}</span></div>`;
+    if(b.t==='note') return `<div class="note">${esc(b.v)}</div>`;
+    return '';
+  }).join('');
+}
+function openLink(a){ return `<a class="open" href="${esc(deskUrl(a.link[1]))}" target="${TARGET}" rel="noopener">${esc(a.link[0])} &rarr;</a>`; }
+
+function renderEmpty(){
+  document.documentElement.style.setProperty('--accent','var(--gold)');
+  panel.style.removeProperty('--c');
+  panel.innerHTML=`<div class="panel-body in empty">
+    <h2 class="gold">Dana's team</h2>
+    <p>The Brain writes every message in Dana's voice. The Desk is the team that sends them, books the calls and keeps every client moving, day and night.</p>
+    <ul class="legend">${AGENTS.map(a=>`<li style="--c:${a.color}"><b style="color:${a.color}">${esc(a.name)}</b> &middot; ${esc(a.role)}</li>`).join('')}</ul>
+    <div class="motto gold">The Brain writes it. The Desk sends it. Dana shows up to the call.</div>
+  </div>`;
+}
+
+function select(id,fromUser){
+  current=id;
+  orbit.classList.toggle('has-sel',!!id);
+  document.querySelectorAll('.agent-btn').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.id===id)));
+  document.querySelectorAll('.wire').forEach(l=>l.classList.toggle('on',l.dataset.id===id));
+  if(!id){ pulse.classList.remove('on'); renderEmpty(); try{history.replaceState(null,'',location.pathname+location.search)}catch(e){} return; }
+  const a=AGENTS.find(x=>x.id===id);
+  document.documentElement.style.setProperty('--accent',a.color);
+  pulse.style.offsetPath=`path("${a.path}")`;
+  pulse.classList.remove('on'); void pulse.getBoundingClientRect(); pulse.classList.add('on');
+  panel.style.setProperty('--c',a.color);
+  const tl=a.timeline?`<h3>The five touches</h3><ol class="tl">${a.timeline.map(t=>`<li><b>${esc(t[0])}</b>${esc(t[1])}</li>`).join('')}</ol>`:'';
+  panel.innerHTML=`<div class="panel-body in">
+    <div class="who"><div class="mini">${avatar(a,'p')}</div>
+      <div><h2>${esc(a.name)}</h2><span class="tag">${esc(a.role)}, ${esc(a.nick)}</span></div></div>
+    <p class="one">${esc(a.one)}</p>
+    <div class="statrow"><b>${esc(a.stat)}</b><span>${esc(a.statLabel)}</span></div>
+    <h3>How it works</h3>
+    <ol class="steps">${a.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>
+    ${tl}
+    <div class="sample">${sampleHTML(a.sample)}</div>
+    <p class="wont"><b>${esc(a.name)} won't</b> ${esc(a.wont.slice(0,-1).join(', '))}${a.wont.length>1?', or ':''}${esc(a.wont[a.wont.length-1])}.</p>
+    ${openLink(a)}
+  </div>`;
+  if(fromUser) try{history.replaceState(null,'','#'+id)}catch(e){}
+}
+
+const start=(location.hash||'').slice(1);
+select(AGENTS.some(a=>a.id===start)?start:null,false);
+</script>
+</body>
+</html>
