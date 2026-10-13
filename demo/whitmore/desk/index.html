@@ -372,19 +372,19 @@ const pipeHref=esc(deskUrl('/opportunities/list'));
 document.getElementById('pipe').innerHTML=STAGES.map(s=>`<li><a href="${pipeHref}" target="${TARGET}" rel="noopener"><span class="st">${esc(s[0])}</span><span class="amt">${esc(s[2])}</span><span class="n">${s[1]} ${s[1]===1?'client':'clients'}</span></a></li>`).join('');
 document.getElementById('total').innerHTML='<b>17 open opportunities &middot; $41,700</b> on the board.';
 
-/* Dana's human team. Snapshot of the Book of Business board by owner (refresh with the counts above). */
+/* Dana's human team. Snapshot of the Book of Business board by owner (refresh with the counts above).
+   Each path opens that agent's saved board tab (GHL smart list) in Whitmore. */
 const STAGE_KEYS=[['Lead','#8A8F98'],['Quote','#F1DDA6'],['App Submitted','#C9A961'],['Underwriting','#A8894A'],['Issued','#7CE38B'],['Cross-Sell','#B07CFF']];
 const TEAM=[
   {ini:'DW', name:'Dana Whitmore', role:'Owner', kind:'owner', book:'$24,000', deals:5, stages:{'Lead':1,'Quote':2,'Underwriting':1,'Issued':1},
-   next:"<b>2 quotes out</b> worth $9,600. Latasha Grant's IUL is the big one.", go:'Open the full board'},
+   next:"<b>2 quotes out</b> worth $9,600. Latasha Grant's IUL is the big one.", go:'Open the full board', path:'/opportunities/list'},
   {ini:'MC', name:'Marcus Cole', role:'Agent', book:'$6,900', deals:4, stages:{'Lead':2,'App Submitted':2},
-   next:"<b>2 applications in process.</b> Priscilla Okafor's prescription check is on day 6.", go:"See Marcus's book"},
+   next:"<b>2 applications in process.</b> Priscilla Okafor's prescription check is on day 6.", go:"See Marcus's book", path:'/opportunities?smartlistId=ZfVLkdjeABfD7uoHiVmp'},
   {ini:'RW', name:'Renee Whitmore', role:'Agent', book:'$10,800', deals:4, stages:{'Underwriting':1,'Issued':1,'Cross-Sell':2},
-   next:"<b>2 cross-sell conversations queued.</b> Monica Sandoval's parents have no final expense yet.", go:"See Renee's book"},
+   next:"<b>2 cross-sell conversations queued.</b> Monica Sandoval's parents have no final expense yet.", go:"See Renee's book", path:'/opportunities?smartlistId=4FUJ0FSgABZnzqbv17TU'},
   {ini:'+', name:'New leads', role:'Waiting for an owner', kind:'unassigned', book:'$0', deals:4, stages:{'Lead':4},
-   next:'<b>4 website leads</b> from the chat and the booking page. Assign each one on the board.', go:'Assign them on the board'}
+   next:'<b>4 website leads</b> from the chat and the booking page. Assign each one on the board.', go:'Assign them on the board', path:'/opportunities?smartlistId=dP0ayZLXiq9UapGnvHH4'}
 ];
-const boardHref=esc(deskUrl('/opportunities/list'));
 document.getElementById('team').innerHTML=TEAM.map(m=>{
   const bar=STAGE_KEYS.filter(k=>m.stages[k[0]]).map(k=>`<i style="flex:${m.stages[k[0]]};background:${k[1]}" title="${esc(k[0])}: ${m.stages[k[0]]}"></i>`).join('');
   const label=STAGE_KEYS.filter(k=>m.stages[k[0]]).map(k=>`${m.stages[k[0]]} ${k[0]}`).join(', ');
@@ -393,7 +393,7 @@ document.getElementById('team').innerHTML=TEAM.map(m=>{
     <div class="book"><b class="gold">${esc(m.book)}</b><span>${m.deals} ${m.deals===1?'deal':'deals'}</span></div>
     <div class="bar" role="img" aria-label="${esc(label)}">${bar}</div>
     <p class="next">${m.next}</p>
-    <a class="go" href="${boardHref}" target="${TARGET}" rel="noopener">${esc(m.go)} &rarr;</a>
+    <a class="go" href="${esc(deskUrl(m.path))}" target="${TARGET}" rel="noopener">${esc(m.go)} &rarr;</a>
   </li>`;
 }).join('');
 document.getElementById('keys').innerHTML=STAGE_KEYS.map(k=>`<li><i style="background:${k[1]}"></i>${esc(k[0])}</li>`).join('');
