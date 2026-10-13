@@ -35,6 +35,9 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(36px,5.6vw,64px);l
 h1 i{font-weight:600}
 .lede{max-width:56ch;margin:0 auto;font-size:clamp(15.5px,1.5vw,18px);color:var(--muted)}
 .lede strong{color:var(--ink);font-weight:600}
+.jump{display:inline-block;margin-top:14px;padding:8px 18px;border-radius:999px;border:1px solid rgba(201,169,97,.6);color:var(--gold);font-weight:600;font-size:14px;text-decoration:none;background:rgba(201,169,97,.08)}
+.jump:hover{background:rgba(201,169,97,.16);color:var(--gold-hi)}
+.jump:focus-visible{outline:3px solid var(--gold-hi);outline-offset:3px}
 
 .stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(18px,3.5vw,44px);align-items:start;padding-top:clamp(20px,3.5vw,40px);padding-bottom:clamp(24px,4vw,44px)}
 .stage>*{min-width:0}
@@ -165,6 +168,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
   <div class="brand">Signature Agent OS <span>&middot; Built for Whitmore Insurance Group</span></div>
   <h1><span class="gold">Whitmore's</span> <i class="gold">Desk</i></h1>
   <p class="lede">Six AI teammates run the follow-up so nothing waits on Dana to remember. <strong>Tap anyone on the team to see what they handle.</strong></p>
+  <a class="jump" id="jump" href="#teamH">See every agent's book &darr;</a>
 </header>
 
 <main>
@@ -367,6 +371,7 @@ AGENTS.forEach((a,i)=>{
   agentsEl.appendChild(b);
 });
 document.getElementById('core').addEventListener('click',()=>select(null,true));
+document.getElementById('jump').addEventListener('click',e=>{e.preventDefault();document.getElementById('teamH').closest('section').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});});
 
 const pipeHref=esc(deskUrl('/opportunities/list'));
 document.getElementById('pipe').innerHTML=STAGES.map(s=>`<li><a href="${pipeHref}" target="${TARGET}" rel="noopener"><span class="st">${esc(s[0])}</span><span class="amt">${esc(s[2])}</span><span class="n">${s[1]} ${s[1]===1?'client':'clients'}</span></a></li>`).join('');
