@@ -269,7 +269,7 @@ const AGENTS = [
     link:['Open the chat assistant','/ai-agents/conversation-ai'] },
 
   { id:'wes', name:'Wes', role:'New Lead Welcome', nick:'the first five touches', color:'#7CE38B', eyes:'ring', top:'antenna', icon:'plane',
-    count:'5', stat:'5', statLabel:'new leads welcomed',
+    count:'6', stat:'6', statLabel:'new leads welcomed',
     one:'The second a lead lands on the board, Wes starts a five-touch welcome so nobody sits waiting for a reply.',
     timeline:[['Now','Text'],['10 min','Email'],['Day 2','Text'],['Day 4','Email'],['Day 7','Text']],
     steps:['Starts the moment a new lead lands in the Lead stage',"Every message is written by the Brain, in Dana's voice",'Stops the second they reply or move to Quote, and hands Dana the ball'],
@@ -306,7 +306,7 @@ const AGENTS = [
     link:['Open the no-show rebook','/automation/workflow/f9f26085-f107-441b-9e94-c6d124fa8137'] },
 
   { id:'bo', name:'Bo', role:'Book of Business', nick:'keeps the board honest', color:'#D7DCE3', eyes:'pixel', top:'ears', icon:'board',
-    count:'16', stat:'$41.7K', statLabel:'in 16 open opportunities on the board',
+    count:'17', stat:'$41.7K', statLabel:'in 17 open opportunities on the board',
     one:"Every lead, quote, application and policy on one screen, so Dana sees who's moving and who's stuck.",
     steps:['Chats and bookings land in Lead on their own','Moving a card to Lead starts Wes. Moving it to Quote stops him','Issued clients roll into Cross-Sell, so the next conversation is already queued'],
     sample:[{t:'cap',v:'Try it live'},
@@ -315,7 +315,7 @@ const AGENTS = [
     link:['Open the board','/opportunities/list'] }
 ];
 
-const STAGES = [['Lead',6,'$3,000'],['Quote',2,'$9,600'],['App Submitted',2,'$3,900'],['Underwriting',2,'$9,600'],['Issued',2,'$11,100'],['Cross-Sell',2,'$4,500']];
+const STAGES = [['Lead',7,'$3,000'],['Quote',2,'$9,600'],['App Submitted',2,'$3,900'],['Underwriting',2,'$9,600'],['Issued',2,'$11,100'],['Cross-Sell',2,'$4,500']];
 
 const ICONS = {
   chat:'<path d="M88 89.5 h16 v10 h-9 l-4 4 v-4 h-3 z"/>',
@@ -407,7 +407,7 @@ document.getElementById('jump').addEventListener('click',e=>{e.preventDefault();
 
 const pipeHref=esc(deskUrl('/opportunities/list'));
 document.getElementById('pipe').innerHTML=STAGES.map(s=>`<li><a href="${pipeHref}" target="${TARGET}" rel="noopener"><span class="st">${esc(s[0])}</span><span class="amt">${esc(s[2])}</span><span class="n">${s[1]} ${s[1]===1?'client':'clients'}</span></a></li>`).join('');
-document.getElementById('total').innerHTML='<b>16 open opportunities &middot; $41,700</b> on the board.';
+document.getElementById('total').innerHTML='<b>17 open opportunities &middot; $41,700</b> on the board.';
 
 /* Dana's human team. Snapshot of the Book of Business board by owner (refresh with the counts above).
    Each path opens that agent's saved board tab (GHL smart list) in Whitmore. */
@@ -419,8 +419,8 @@ const TEAM=[
    next:"<b>2 applications in process.</b> Priscilla Okafor's prescription check is on day 6.", go:"See Marcus's book", path:'/opportunities?smartlistId=ZfVLkdjeABfD7uoHiVmp'},
   {ini:'RW', name:'Renee Whitmore', role:'Agent', book:'$10,800', deals:4, stages:{'Underwriting':1,'Issued':1,'Cross-Sell':2},
    next:"<b>2 cross-sell conversations queued.</b> Monica Sandoval's parents have no final expense yet.", go:"See Renee's book", path:'/opportunities?smartlistId=4FUJ0FSgABZnzqbv17TU'},
-  {ini:'+', name:'New leads', role:'Waiting for an owner', kind:'unassigned', book:'$0', deals:3, stages:{'Lead':3},
-   next:'<b>3 website chat leads</b> waiting for an agent. Assign each one on the board.', go:'Assign them on the board', path:'/opportunities?smartlistId=dP0ayZLXiq9UapGnvHH4'}
+  {ini:'+', name:'New leads', role:'Waiting for an owner', kind:'unassigned', book:'$0', deals:4, stages:{'Lead':4},
+   next:'<b>3 website chat leads and 1 Rainmaker reply</b> waiting for an agent. Assign each one on the board.', go:'Assign them on the board', path:'/opportunities?smartlistId=dP0ayZLXiq9UapGnvHH4'}
 ];
 document.getElementById('team').innerHTML=TEAM.map(m=>{
   const bar=STAGE_KEYS.filter(k=>m.stages[k[0]]).map(k=>`<i style="flex:${m.stages[k[0]]};background:${k[1]}" title="${esc(k[0])}: ${m.stages[k[0]]}"></i>`).join('');
