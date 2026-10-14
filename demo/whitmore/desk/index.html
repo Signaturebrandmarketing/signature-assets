@@ -148,6 +148,16 @@ section.band{padding:0 0 clamp(24px,4vw,44px)}
 .keys{display:flex;flex-wrap:wrap;gap:6px 16px;margin:16px 0 0;padding:0;list-style:none;font-size:12.5px;color:var(--muted)}
 .keys i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 
+.crew{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;margin:0;padding:0;list-style:none}
+.crew li{text-align:center;min-width:0}
+.crew .face{width:min(96px,100%);margin-inline:auto}
+.crew .nm{display:block;font-weight:700;font-size:14.5px;margin-top:6px}
+.crew .rl{display:block;font-size:12.5px;color:var(--muted);line-height:1.25}
+.crew-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:22px}
+.crew-foot .motto{margin:0;font-size:20px}
+.crew-foot .open{margin-top:0}
+@media (max-width:900px){.crew{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
 footer{padding:8px 0 32px;color:var(--muted);font-size:13px}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding-top:18px}
 
@@ -205,6 +215,18 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
     <p class="total" id="total"></p>
   </div></div>
 </section>
+
+<section class="band" aria-labelledby="crewH">
+  <div class="wrap"><div class="card">
+    <h2 id="crewH" class="gold">The other six: the Brain team</h2>
+    <p>The Desk sends every message. These six write them first: in Dana's voice, from the agency's own files, inside its compliance rules.</p>
+    <ul class="crew" id="crew"></ul>
+    <div class="crew-foot">
+      <p class="motto gold">The Brain writes it. The Desk sends it.</p>
+      <a class="open" href="https://claude.ai/artifact/6Un67zovEGd2HG16JVR4yy" target="_blank" rel="noopener">Open the Brain &rarr;</a>
+    </div>
+  </div></div>
+</section>
 </main>
 
 <footer>
@@ -228,7 +250,7 @@ const deskUrl = p => APP + '/v2/location/' + LOC + p;
 const TARGET = IN_FRAME ? '_top' : '_blank';
 
 const AGENTS = [
-  { id:'avery', name:'Avery', role:'Front Desk', nick:'website chat, day and night', color:'#3FD8FF', eyes:'dots', top:'headset', icon:'chat',
+  { id:'avery', name:'Avery', role:'Front Desk', nick:'website chat, day and night', color:'#C6F26B', eyes:'dots', top:'headset', icon:'chat',
     count:'7', stat:'7', statLabel:'website chats handled in October',
     one:"Answers the website chat around the clock, finds out what the visitor needs, and offers real Coverage Review times off Dana's calendar.",
     steps:["A visitor opens the chat on Whitmore's website","Avery answers in Dana's voice and asks what they need covered","Offers open Coverage Review times and books the one they pick"],
@@ -257,7 +279,7 @@ const AGENTS = [
     wont:['let a warm chat go quiet','call or text anyone who did not leave their number'],
     link:['Open the rescue workflow','/automation/workflow/11279410-a82f-4e24-bf4b-080a8a9a32c1'] },
 
-  { id:'cal', name:'Cal', role:'Confirmations & Reminders', nick:'gets them to the call', color:'#5B8CFF', eyes:'bar', top:'headset', icon:'cal',
+  { id:'cal', name:'Cal', role:'Confirmations & Reminders', nick:'gets them to the call', color:'#E879F9', eyes:'bar', top:'headset', icon:'cal',
     count:'2', stat:'2', statLabel:'Coverage Reviews booked and confirmed',
     one:'Every time someone books a Coverage Review, Cal confirms it, schedules the reminders and puts them on the board.',
     steps:['They pick a time on the Coverage Review page','They become a contact, matched to their record if they already exist','Confirmation now, reminders before the call, and a card in Lead marked "Website booking"'],
@@ -266,7 +288,7 @@ const AGENTS = [
     wont:['double-book Dana','let an appointment sneak up on anyone'],
     link:['Open confirmations & reminders','/automation/workflow/4a672e47-fad1-4dd2-9f95-b69c104e0658'] },
 
-  { id:'nora', name:'Nora', role:'No-Show Rebook', nick:'chases the rebook, not silence', color:'#FF5FA8', eyes:'arc', top:'antenna', icon:'loop',
+  { id:'nora', name:'Nora', role:'No-Show Rebook', nick:'chases the rebook, not silence', color:'#FF4D6D', eyes:'arc', top:'antenna', icon:'loop',
     count:'0', stat:'0', statLabel:'no-shows this month. Standing by.',
     one:'If someone misses their Coverage Review, Nora follows up to rebook instead of letting it go quiet.',
     steps:['An appointment is marked as a no-show','Nora sends a friendly note with a link to pick a new time','When they rebook, Cal takes it from there'],
@@ -275,7 +297,7 @@ const AGENTS = [
     wont:['guilt anyone for missing','give up after one try'],
     link:['Open the no-show rebook','/automation/workflow/f9f26085-f107-441b-9e94-c6d124fa8137'] },
 
-  { id:'bo', name:'Bo', role:'Book of Business', nick:'keeps the board honest', color:'#B07CFF', eyes:'pixel', top:'ears', icon:'board',
+  { id:'bo', name:'Bo', role:'Book of Business', nick:'keeps the board honest', color:'#D7DCE3', eyes:'pixel', top:'ears', icon:'board',
     count:'16', stat:'$41.7K', statLabel:'in 16 open opportunities on the board',
     one:"Every lead, quote, application and policy on one screen, so Dana sees who's moving and who's stuck.",
     steps:['Chats and bookings land in Lead on their own','Moving a card to Lead starts Wes. Moving it to Quote stops him','Issued clients roll into Cross-Sell, so the next conversation is already queued'],
@@ -293,7 +315,9 @@ const ICONS = {
   clip:'<rect x="89.5" y="88" width="13" height="16" rx="2"/><path d="M93 96.5 l2.4 2.4 l4.4 -4.8"/>',
   cal:'<rect x="88.5" y="89.5" width="15" height="13" rx="2"/><path d="M88.5 93.5 h15 M92 88 v3 M100 88 v3 M93 98 l2 2 l4 -4"/>',
   loop:'<path d="M89.5 95 a6.5 6.5 0 0 1 11.5 -3.5 M101 88 v3.8 h-3.8 M102.5 97 a6.5 6.5 0 0 1 -11.5 3.5 M91 104 v-3.8 h3.8"/>',
-  board:'<rect x="88" y="89" width="4.5" height="14" rx="1"/><rect x="93.75" y="89" width="4.5" height="10" rx="1"/><rect x="99.5" y="89" width="4.5" height="7" rx="1"/>'
+  board:'<rect x="88" y="89" width="4.5" height="14" rx="1"/><rect x="93.75" y="89" width="4.5" height="10" rx="1"/><rect x="99.5" y="89" width="4.5" height="7" rx="1"/>',
+  tray:'<path d="M88 97 l3 -7 h10 l3 7 v6 h-16 z M88 97 h5 l1.5 2.5 h3 l1.5 -2.5 h5"/>',
+  shield:'<path d="M96 87.5 l7 3 v5 c0 5 -3 7.5 -7 9.5 c-4 -2 -7 -4.5 -7 -9.5 v-5 z M96 92 v7 M92.5 95.5 h7"/>'
 };
 
 function eyesSVG(a){
@@ -401,6 +425,16 @@ document.getElementById('team').innerHTML=TEAM.map(m=>{
     <a class="go" href="${esc(deskUrl(m.path))}" target="${TARGET}" rel="noopener">${esc(m.go)} &rarr;</a>
   </li>`;
 }).join('');
+/* The Brain team (keep in sync with Whitmore's Sales Brain page). */
+const BRAIN=[
+  {id:'riley',name:'Riley',role:'Lead Re-Engagement',color:'#3FD8FF',eyes:'dots',top:'headset',icon:'plane'},
+  {id:'paige',name:'Paige',role:'App Follow-Up',color:'#5B8CFF',eyes:'ring',top:'antenna',icon:'clip'},
+  {id:'ines',name:'Ines',role:'Inbox Triage',color:'#B07CFF',eyes:'oval',top:'headset',icon:'tray'},
+  {id:'augie',name:'Augie',role:'AEP Content',color:'#3FF0C0',eyes:'bar',top:'ears',icon:'shield'},
+  {id:'ruth',name:'Ruth',role:'Policy Renewal & Review',color:'#FF5FA8',eyes:'arc',top:'headset',icon:'cal'},
+  {id:'sol',name:'Sol',role:'Compliance-Safe Social',color:'#FFC14D',eyes:'pixel',top:'antenna',icon:'chat'}
+];
+document.getElementById('crew').innerHTML=BRAIN.map(a=>`<li>${avatar(a,'b')}<span class="nm" style="color:${a.color}">${esc(a.name)}</span><span class="rl">${esc(a.role)}</span></li>`).join('');
 document.getElementById('keys').innerHTML=STAGE_KEYS.map(k=>`<li><i style="background:${k[1]}"></i>${esc(k[0])}</li>`).join('');
 
 
