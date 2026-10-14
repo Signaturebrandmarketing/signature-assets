@@ -60,7 +60,8 @@ h1 i{font-weight:600}
 .agent-btn .face,.crew .face{display:block;width:100%;aspect-ratio:1/1;border-radius:50%}
 /* The glow is a round gradient behind the robot, faded with opacity, so no browser can draw it square mid-animation. */
 .halo{position:relative;display:block;width:100%;aspect-ratio:1/1;border-radius:50%;transition:transform .25s ease}
-.halo::before{content:"";position:absolute;inset:-16%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--c) 60%,transparent) 0%,color-mix(in srgb,var(--c) 22%,transparent) 42%,transparent 68%);opacity:0;transition:opacity .25s ease;pointer-events:none}
+.halo::before{content:"";position:absolute;inset:-36%;border-radius:50%;background:radial-gradient(circle closest-side,color-mix(in srgb,var(--c) 85%,transparent) 0%,color-mix(in srgb,var(--c) 75%,transparent) 54%,color-mix(in srgb,var(--c) 32%,transparent) 68%,color-mix(in srgb,var(--c) 10%,transparent) 84%,transparent 100%);opacity:0;transition:opacity .3s ease;pointer-events:none}
+.agent-btn[aria-pressed="true"]{z-index:2}
 .halo .face{position:relative}
 .agent-btn .nm,.agent-btn .rl{display:table;margin-inline:auto;padding-inline:6px;border-radius:6px;background:rgba(11,11,11,.88)}
 .agent-btn .nm{font-weight:700;font-size:clamp(12.5px,1.55vw,16px);line-height:1.1;margin-top:6px}
