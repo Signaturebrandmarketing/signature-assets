@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Signature Agent OS: Overview</title>
+<meta name="description" content="An AI team for insurance agencies. It brings in the leads, automates the follow-up, and runs your agency top to bottom while you're not in the room.">
+<meta property="og:title" content="Signature Agent OS">
+<meta property="og:description" content="An AI team that brings in the leads, automates the follow-up, and runs your agency while you're not in the room. Watch the 77-second overview.">
+<meta property="og:image" content="https://signaturebrandmarketing.github.io/signature-assets/agent-os/poster.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0B0B; --bg2:#141210;
+  --gold-hi:#F1DDA6; --gold:#C9A961; --gold-lo:#8F7337;
+  --ink:#F5EFE4; --muted:rgba(245,239,228,.68); --line:rgba(201,169,97,.22); --soft:rgba(255,255,255,.05);
+  --display:"Playfair Display",Georgia,serif;
+  --body:"Inter",-apple-system,"Segoe UI",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;
+  background:
+    radial-gradient(800px 600px at 85% 20%, rgba(201,169,97,.10), transparent 60%),
+    radial-gradient(700px 520px at 10% 0%, rgba(201,169,97,.08), transparent 60%),
+    linear-gradient(170deg,var(--bg) 0%,var(--bg2) 100%);}
+.wrap{max-width:980px;margin:0 auto;padding-inline:clamp(16px,4vw,36px)}
+.gold{background:linear-gradient(180deg,var(--gold-hi) 0%,var(--gold) 55%,var(--gold-lo) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-block:clamp(16px,3vw,26px)}
+.brand{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.brand span{color:var(--muted);letter-spacing:.16em}
+
+header{text-align:center;padding-block:clamp(8px,2vw,18px) clamp(18px,3vw,28px)}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,5.4vw,58px);line-height:1.04;margin:0 auto 12px;letter-spacing:-.01em;text-wrap:balance;max-width:16ch}
+h1 i{font-weight:600}
+.lede{max-width:54ch;margin:0 auto;font-size:clamp(16px,1.6vw,19px);color:var(--muted);text-wrap:balance}
+.lede strong{color:var(--ink);font-weight:600}
+
+.player{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#000;box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 6px rgba(201,169,97,.05)}
+.player video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000}
+.playbtn{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;padding-bottom:4.5%;border:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.55) 100%);color:var(--ink);cursor:pointer;font:inherit}
+.playbtn .disc{width:clamp(52px,7vw,72px);aspect-ratio:1/1;border-radius:50%;background:var(--gold);display:grid;place-items:center;box-shadow:0 0 0 10px rgba(201,169,97,.18),0 12px 40px rgba(0,0,0,.5);transition:transform .2s}
+.playbtn:hover .disc{transform:scale(1.06)}
+.playbtn .disc svg{width:38%;height:38%;margin-left:7%}
+.playbtn .cap{font-weight:600;font-size:clamp(14px,1.6vw,17px);text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.playbtn:focus-visible{outline:3px solid var(--gold-hi);outline-offset:-6px}
+.playbtn[hidden]{display:none}
+
+.promise{text-align:center;margin:16px 0 0;color:var(--muted);font-size:15px}
+.promise b{color:var(--gold-hi);font-weight:600}
+
+.steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:clamp(22px,4vw,34px) 0}
+.steps>*{min-width:0}
+.step{background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.01));border:1px solid var(--line);border-radius:20px;padding:clamp(18px,2.6vw,26px);display:flex;flex-direction:column}
+.step .k{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.step h2{font-family:var(--display);font-weight:700;font-size:clamp(22px,2.4vw,27px);line-height:1.12;margin:6px 0 6px}
+.step p{color:var(--muted);margin:0 0 16px;font-size:15px}
+.step .spacer{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;border:0;cursor:pointer;font-family:inherit;transition:background .2s,opacity .2s}
+.btn.gold-b{background:var(--gold);color:#0B0B0B;box-shadow:0 8px 24px rgba(201,169,97,.25)}
+.btn.gold-b:hover{background:var(--gold-hi)}
+.btn.line{background:transparent;color:var(--gold);border:1px solid rgba(201,169,97,.6)}
+.btn.line:hover{background:rgba(201,169,97,.1);color:var(--gold-hi)}
+.btn:focus-visible{outline:3px solid var(--gold-hi);outline-offset:3px}
+.btn[aria-disabled="true"]{background:var(--soft);color:rgba(245,239,228,.45);border:1px dashed rgba(201,169,97,.35);box-shadow:none;cursor:not-allowed}
+.meter{height:6px;border-radius:99px;background:var(--soft);overflow:hidden;margin:0 0 14px}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold-lo),var(--gold-hi));transition:width .3s}
+.unlocked .meter{display:none}
+.step.locked{opacity:.92}
+
+.three{list-style:none;margin:0 0 clamp(26px,4vw,40px);padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.three>*{min-width:0}
+.three li{padding:16px 16px 14px;border-radius:16px;background:var(--soft);border:1px solid var(--line);border-top:3px solid var(--gold)}
+.three b{display:block;font-family:var(--display);font-size:19px;margin-bottom:2px}
+.three span{color:var(--muted);font-size:14.5px}
+
+footer{border-top:1px solid var(--line);padding-block:20px 30px;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+@media (max-width:720px){
+  .playbtn{padding-bottom:2.5%;gap:4px}
+  .playbtn .disc{width:40px;box-shadow:0 0 0 6px rgba(201,169,97,.18),0 8px 24px rgba(0,0,0,.5)}
+  .playbtn .cap{font-size:12.5px}
+  .steps{grid-template-columns:1fr}
+  .three{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap top">
+  <div class="brand">Signature Agent OS <span>&middot; Signature Branding &amp; Marketing</span></div>
+  <a class="btn line" href="https://api.leadconnectorhq.com/widget/bookings/agent-os-demo" target="_blank" rel="noopener">Book a 15-min demo</a>
+</div>
+
+<header class="wrap">
+  <h1>An <i class="gold">AI team</i> for your agency.</h1>
+  <p class="lede">It brings in the leads, automates the follow-up, and <strong>runs your agency top to bottom while you're not in the room.</strong> Start with the 77-second overview.</p>
+</header>
+
+<main class="wrap">
+  <div class="player">
+    <video id="vid" preload="metadata" playsinline poster="poster.jpg" aria-label="Signature Agent OS overview video">
+      <source src="agent-os-overview.mp4" type="video/mp4">
+    </video>
+    <button class="playbtn" id="play" type="button" aria-label="Play the 77-second overview">
+      <span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="#0B0B0B"/></svg></span>
+      <span class="cap">Watch the overview &middot; 1:17</span>
+    </button>
+  </div>
+  <p class="promise"><b>Guaranteed to save you 10+ hours a week.</b></p>
+
+  <section class="steps" aria-label="Next steps">
+    <div class="step locked" id="demoStep">
+      <span class="k">Step 2</span>
+      <h2>See it working</h2>
+      <p id="demoNote">Walk through a demo agency running on Agent OS: the AI team, every agent's book, and the whole pipeline on one screen. It unlocks when the overview ends.</p>
+      <div class="spacer"></div>
+      <div class="meter" aria-hidden="true"><i id="meter"></i></div>
+      <a class="btn gold-b" id="demoBtn" href="../demo/whitmore/desk/?public=1" aria-disabled="true" tabindex="-1">Watch the overview first</a>
+    </div>
+    <div class="step">
+      <span class="k">Step 3</span>
+      <h2>Book your 15-minute demo</h2>
+      <p>See it on your own agency's numbers: your leads, your team, your follow-up. Fifteen minutes with Ken.</p>
+      <div class="spacer"></div>
+      <a class="btn gold-b" href="https://api.leadconnectorhq.com/widget/bookings/agent-os-demo" target="_blank" rel="noopener">Book your demo &rarr;</a>
+    </div>
+  </section>
+
+  <ul class="three" aria-label="What it does">
+    <li><b class="gold">Brings in the leads</b><span>Outbound that finds and starts the conversation for you.</span></li>
+    <li><b class="gold">Automates the follow-up</b><span>Every lead answered fast, booked, reminded and rebooked.</span></li>
+    <li><b class="gold">Runs the agency</b><span>Your whole team's pipeline and content, handled while you're away.</span></li>
+  </ul>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Signature Branding &amp; Marketing &middot; Winter Haven, Florida</span>
+    <span>Signature Agent OS</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var vid = document.getElementById('vid');
+  var play = document.getElementById('play');
+  var step = document.getElementById('demoStep');
+  var btn = document.getElementById('demoBtn');
+  var meter = document.getElementById('meter');
+  var note = document.getElementById('demoNote');
+  var KEY = 'aos-overview-watched';
+
+  function unlock(){
+    if (step.classList.contains('unlocked')) return;
+    step.classList.add('unlocked'); step.classList.remove('locked');
+    btn.removeAttribute('aria-disabled'); btn.removeAttribute('tabindex');
+    btn.innerHTML = 'See it working &rarr;';
+    note.textContent = 'Walk through a demo agency running on Agent OS: the AI team, every agent’s book, and the whole pipeline on one screen.';
+    try { localStorage.setItem(KEY, '1'); } catch(e){}
+  }
+  try { if (localStorage.getItem(KEY) === '1') unlock(); } catch(e){}
+
+  btn.addEventListener('click', function(e){
+    if (btn.getAttribute('aria-disabled') === 'true') {
+      e.preventDefault();
+      vid.scrollIntoView({behavior:'smooth', block:'center'});
+      if (vid.paused) start();
+    }
+  });
+
+  function start(){
+    play.hidden = true;
+    vid.setAttribute('controls','');
+    var p = vid.play(); if (p && p.catch) p.catch(function(){});
+  }
+  play.addEventListener('click', start);
+
+  vid.addEventListener('timeupdate', function(){
+    if (!vid.duration) return;
+    var pct = Math.min(100, vid.currentTime / vid.duration * 100);
+    meter.style.width = pct + '%';
+    if (pct >= 95) unlock();
+  });
+  vid.addEventListener('ended', unlock);
+})();
+</script>
+</body>
+</html>

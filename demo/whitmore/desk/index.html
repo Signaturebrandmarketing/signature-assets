@@ -179,6 +179,19 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
   .tl{grid-template-columns:repeat(3,minmax(0,1fr))}
   .legend{grid-template-columns:1fr}
 }
+/* public (outside visitor) version */
+.pubbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;max-width:1180px;margin:0 auto 18px;padding:0 clamp(16px,3.5vw,36px)}
+.pubbar a{font-size:14px;font-weight:600;text-decoration:none}
+.pubbar .back{color:var(--muted)}
+.pubbar .back:hover{color:var(--ink)}
+.pubcta{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;background:var(--gold);color:#0B0B0B!important;font-weight:700;box-shadow:0 8px 24px rgba(201,169,97,.25)}
+.pubcta:hover{background:var(--gold-hi)}
+.pubcta:focus-visible,.pubbar .back:focus-visible{outline:3px solid var(--gold-hi);outline-offset:3px}
+.public .pipe a{cursor:default}
+.public .pipe a:hover{background:var(--soft)}
+.public .crew-foot .open{display:none}
+.pubend{text-align:center;padding:8px 0 36px}
+.pubend p{color:var(--muted);margin:0 0 14px}
 </style>
 </head>
 <body>
@@ -256,6 +269,9 @@ const APP = (function(){
 })();
 const deskUrl = p => APP + '/v2/location/' + LOC + p;
 const TARGET = IN_FRAME ? '_top' : '_blank';
+/* ?public=1: the outside-visitor version (linked from the Agent OS overview page). No GHL links, back link + booking button. */
+const PUBLIC = new URLSearchParams(location.search).has('public') && !IN_FRAME;
+if (PUBLIC) document.documentElement.classList.add('public');
 
 const AGENTS = [
   { id:'avery', name:'Avery', role:'Front Desk', nick:'website chat, day and night', color:'#C6F26B', eyes:'dots', top:'headset', icon:'chat',
@@ -406,7 +422,7 @@ document.getElementById('core').addEventListener('click',()=>select(null,true));
 document.getElementById('jump').addEventListener('click',e=>{e.preventDefault();document.getElementById('teamH').closest('section').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});});
 
 const pipeHref=esc(deskUrl('/opportunities/list'));
-document.getElementById('pipe').innerHTML=STAGES.map(s=>`<li><a href="${pipeHref}" target="${TARGET}" rel="noopener"><span class="st">${esc(s[0])}</span><span class="amt">${esc(s[2])}</span><span class="n">${s[1]} ${s[1]===1?'client':'clients'}</span></a></li>`).join('');
+document.getElementById('pipe').innerHTML=STAGES.map(s=>`<li><a ${PUBLIC ? '' : `href="${pipeHref}" target="${TARGET}" rel="noopener"`}><span class="st">${esc(s[0])}</span><span class="amt">${esc(s[2])}</span><span class="n">${s[1]} ${s[1]===1?'client':'clients'}</span></a></li>`).join('');
 document.getElementById('total').innerHTML='<b>17 open opportunities &middot; $41,700</b> on the board.';
 
 /* Dana's human team. Snapshot of the Book of Business board by owner (refresh with the counts above).
@@ -430,7 +446,7 @@ document.getElementById('team').innerHTML=TEAM.map(m=>{
     <div class="book"><b class="gold">${esc(m.book)}</b><span>${m.deals} ${m.deals===1?'deal':'deals'}</span></div>
     <div class="bar" role="img" aria-label="${esc(label)}">${bar}</div>
     <p class="next">${m.next}</p>
-    <a class="go" href="${esc(deskUrl(m.path))}" target="${TARGET}" rel="noopener">${esc(m.go)} &rarr;</a>
+    ${PUBLIC ? '' : `<a class="go" href="${esc(deskUrl(m.path))}" target="${TARGET}" rel="noopener">${esc(m.go)} &rarr;</a>`}
   </li>`;
 }).join('');
 /* The Brain team (keep in sync with Whitmore's Sales Brain page). */
@@ -456,7 +472,20 @@ function sampleHTML(s){
     return '';
   }).join('');
 }
-function openLink(a){ return `<a class="open" href="${esc(deskUrl(a.link[1]))}" target="${TARGET}" rel="noopener">${esc(a.link[0])} &rarr;</a>`; }
+function openLink(a){ if (PUBLIC) return ''; return `<a class="open" href="${esc(deskUrl(a.link[1]))}" target="${TARGET}" rel="noopener">${esc(a.link[0])} &rarr;</a>`; }
+
+if (PUBLIC) {
+  const BOOK = 'https://api.leadconnectorhq.com/widget/bookings/agent-os-demo';
+  const bar = document.createElement('nav');
+  bar.className = 'pubbar'; bar.setAttribute('aria-label','Overview');
+  bar.innerHTML = '<a class="back" href="../../../agent-os/">&larr; Back to the overview</a><a class="pubcta" href="'+BOOK+'" target="_blank" rel="noopener">Book your 15-minute demo &rarr;</a>';
+  document.querySelector('header').prepend(bar);
+  const pp = document.getElementById('pipeH').nextElementSibling; if (pp) pp.textContent = 'The Book of Business board, stage by stage.';
+  const end = document.createElement('section');
+  end.className = 'pubend wrap';
+  end.innerHTML = '<p>This is a demo agency. Yours would run on your own leads, your own team and your own voice.</p><a class="pubcta" href="'+BOOK+'" target="_blank" rel="noopener">Book your 15-minute demo &rarr;</a>';
+  document.querySelector('main').appendChild(end);
+}
 
 function renderEmpty(){
   document.documentElement.style.setProperty('--accent','var(--gold)');
