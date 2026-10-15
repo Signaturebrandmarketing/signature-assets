@@ -485,6 +485,13 @@ if (PUBLIC) {
   end.className = 'pubend wrap';
   end.innerHTML = '<p>This is a demo agency. Yours would run on your own leads, your own team and your own voice.</p><a class="pubcta" href="'+BOOK+'" target="_blank" rel="noopener">Book your 15-minute demo &rarr;</a>';
   document.querySelector('main').appendChild(end);
+  const gc = document.createElement('script');
+  gc.src = '../../../agent-os/aos-count.js';
+  gc.onload = () => {
+    window.aosCount('/desk-demo');
+    document.querySelectorAll('a.pubcta').forEach(a => a.addEventListener('click', () => window.aosCount('book-demo-clicked', true)));
+  };
+  document.head.appendChild(gc);
 }
 
 function renderEmpty(){

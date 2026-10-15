@@ -98,7 +98,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 
 <div class="wrap top">
   <div class="brand">Signature Agent OS <span>&middot; Signature Branding &amp; Marketing</span></div>
-  <a class="btn line" href="https://api.leadconnectorhq.com/widget/bookings/agent-os-demo" target="_blank" rel="noopener">Book a 15-min demo</a>
+  <a class="btn line book" href="https://api.leadconnectorhq.com/widget/bookings/agent-os-demo" target="_blank" rel="noopener">Book a 15-min demo</a>
 </div>
 
 <header class="wrap">
@@ -132,7 +132,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
       <h2>Book your 15-minute demo</h2>
       <p>See it on your own agency's numbers: your leads, your team, your follow-up. Fifteen minutes with Ken.</p>
       <div class="spacer"></div>
-      <a class="btn gold-b" href="https://api.leadconnectorhq.com/widget/bookings/agent-os-demo" target="_blank" rel="noopener">Book your demo &rarr;</a>
+      <a class="btn gold-b book" href="https://api.leadconnectorhq.com/widget/bookings/agent-os-demo" target="_blank" rel="noopener">Book your demo &rarr;</a>
     </div>
   </section>
 
@@ -150,6 +150,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
   </div>
 </footer>
 
+<script src="aos-count.js"></script>
 <script>
 (function(){
   var vid = document.getElementById('vid');
@@ -159,6 +160,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
   var meter = document.getElementById('meter');
   var note = document.getElementById('demoNote');
   var KEY = 'aos-overview-watched';
+  var count = window.aosCount || function(){};
+  var started = false, finished = false;
+  count('/overview');
+
+  function finish(){
+    if (!finished) { finished = true; count('video-finished', true); }
+    unlock();
+  }
 
   function unlock(){
     if (step.classList.contains('unlocked')) return;
@@ -189,9 +198,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
     if (!vid.duration) return;
     var pct = Math.min(100, vid.currentTime / vid.duration * 100);
     meter.style.width = pct + '%';
-    if (pct >= 95) unlock();
+    if (pct >= 95) finish();
   });
-  vid.addEventListener('ended', unlock);
+  vid.addEventListener('ended', finish);
+  vid.addEventListener('play', function(){
+    if (!started) { started = true; count('video-started', true); }
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('a.book'), function(a){
+    a.addEventListener('click', function(){ count('book-demo-clicked', true); });
+  });
 })();
 </script>
 </body>
