@@ -260,4 +260,20 @@ footer a{color:var(--muted)}
   <p>Sources: <a href="https://awardcare.com/">awardcare.com</a> and the community social pages linked from it (reviewed November 8, 2026); <a href="https://ahca.myflorida.com/medicaid/cost-reimbursement/nursing-home-rates.html">Florida AHCA nursing home Medicaid rates</a>.</p>
   <p>Prepared for Award Care by Signature Branding &amp; Marketing. A starting outline for our conversation, not a proposal.</p>
 </div></footer>
+<script src="../../agent-os/aos-count.js"></script>
+<script>
+/* Views for Ken (GoatCounter signaturebm): /award-care = opened, award-care-read-to-end = reached "Let's find 20 minutes",
+   award-care-contact-* = tapped Text/Call/Email. Open the page with #me once on a device to stop counting yourself. */
+(function(){
+  if (!window.aosCount) return;
+  aosCount('/award-care');
+  var talk = document.getElementById('talk'), seen = false;
+  if (talk && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function(es, o){ es.forEach(function(e){ if (e.isIntersecting && !seen) { seen = true; aosCount('award-care-read-to-end', true); o.disconnect(); } }); }, {threshold: 0.4}).observe(talk);
+  }
+  document.querySelectorAll('.talk a.btn').forEach(function(a){
+    a.addEventListener('click', function(){ var h = a.getAttribute('href') || ''; aosCount('award-care-contact-' + (h.indexOf('sms:') === 0 ? 'text' : h.indexOf('tel:') === 0 ? 'call' : 'email'), true); });
+  });
+})();
+</script>
 </body></html>
