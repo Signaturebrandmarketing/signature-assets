@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>LaQuita · LiveLoop Sharing Kit</title>
+<style>
+  :root { --bg:#f7f4ee; --card:#fff; --ink:#1d1b18; --muted:#6b645a; --gold:#8a6d1f; --line:#e4ddcf; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; font-size:16px; line-height:1.55; }
+  .wrap { max-width:640px; margin:0 auto; padding:28px 16px 48px; }
+  .brand { font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:700; }
+  h1 { font-size:26px; line-height:1.2; margin:6px 0 10px; text-wrap:balance; }
+  h2 { font-size:19px; margin:30px 0 8px; }
+  p.lead { color:var(--muted); margin:0 0 18px; }
+  .box { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:0 0 18px; font-size:15px; }
+  .btns { display:flex; flex-wrap:wrap; gap:10px; margin:10px 0 0; }
+  .btn { display:inline-block; text-decoration:none; font-weight:700; font-size:14px; padding:11px 16px; border-radius:999px; border:1.5px solid var(--gold); color:var(--gold); background:transparent; cursor:pointer; font-family:inherit; }
+  .btn.solid { background:var(--gold); color:#fff; }
+  figure { margin:0 0 10px; }
+  figure img { display:block; width:100%; height:auto; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,.08); background:#ddd; }
+  pre { white-space:pre-wrap; font-family:inherit; font-size:15px; margin:0; }
+  .links p { margin:4px 0; word-break:break-all; }
+  .links b { color:var(--gold); }
+  footer { margin-top:30px; font-size:13px; color:var(--muted); text-align:center; }
+</style></head>
+<body><div class="wrap">
+  <div class="brand">Signature Branding &amp; Marketing</div>
+  <h1>LaQuita, your LiveLoop sharing kit</h1>
+  <p class="lead">A flyer with your name, your link and your QR code, plus a one-page guide to who LiveLoop is for and what to say.</p>
+  <div class="box"><b>On your phone:</b> press and hold an image, then tap <b>Save to Photos</b> (iPhone) or <b>Download image</b> (Android). <b>On a computer:</b> right-click and save, or open the PDF to print.</div>
+
+  <h2>1. Your flyer</h2>
+  <figure><img src="flyer.jpg" alt="LiveLoop flyer with Dr. LaQuita Parks's link and QR code"></figure>
+  <div class="btns"><a class="btn solid" href="flyer.jpg">Open the flyer image</a><a class="btn" href="flyer-print.pdf">Print version (PDF)</a></div>
+
+  <h2>2. Who to refer, and what to say</h2>
+  <figure><img src="who-to-refer.jpg" alt="Who LiveLoop is for: ambassador cheat sheet"></figure>
+  <div class="btns"><a class="btn" href="who-to-refer.pdf">Cheat sheet (PDF)</a></div>
+
+  <h2>3. A caption you can post</h2>
+  <div class="box"><pre id="cap">As a Signature Ambassador, I want to introduce you to Signature LiveLoop™ from Signature Branding &amp; Marketing.
+
+Editorial-style branding that positions you as the authority in your space, built for professionals in luxury and high-end markets.
+
+It&#x27;s for you if you&#x27;re the face of your business and clients look you up before they call:
+• Coaches and consultants with premium programs
+• Real estate agents at the high end of their market
+• Financial and insurance advisors
+• Authors and speakers
+• Practice owners: physicians, dentists, med spas and attorneys
+
+Images designed by a professional photographer, posts written in your own voice, story videos starring you, and your own monthly Issue. Nothing posts until you approve it.
+
+See LiveLoop in action with my link:
+signaturebranding.app/liveloop?ref=dr-laquita-parks
+
+#SignatureLiveLoop #PersonalBranding #LuxuryBranding #EditorialPhotography</pre>
+    <div class="btns"><button class="btn solid" id="copyBtn" type="button">Copy caption</button></div></div>
+
+  <h2>Your links</h2>
+  <div class="box links">
+    <p>LiveLoop: <b>signaturebranding.app/liveloop?ref=dr-laquita-parks</b></p>
+    <p>Brand Assessment: <b>signaturebranding.app/brand-assessment?ref=dr-laquita-parks</b></p>
+    <p>Your page: <b>signaturebranding.app/with/dr-laquita-parks</b></p>
+  </div>
+  <footer>Questions? Reply to Ken's email anytime.</footer>
+</div>
+<script>
+  document.getElementById("copyBtn").addEventListener("click", function () {
+    var t = document.getElementById("cap").innerText, b = this;
+    function done() { b.textContent = "Copied"; setTimeout(function () { b.textContent = "Copy caption"; }, 2000); }
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, function () { select(); }); else select();
+    function select() { var r = document.createRange(); r.selectNodeContents(document.getElementById("cap")); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Selected: now copy"; }
+  });
+</script>
+</body></html>
