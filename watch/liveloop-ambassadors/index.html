@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Signature LiveLoop for Ambassadors | Signature Branding &amp; Marketing</title>
+<meta name="description" content="Signature LiveLoop is automated personal branding for high-end brands. Watch how it works, then the full walkthrough.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Signature LiveLoop: how it works">
+<meta property="og:description" content="Signature LiveLoop is automated personal branding for high-end brands.">
+<meta property="og:image" content="https://signaturebrandmarketing.github.io/signature-assets/watch/liveloop-ambassadors/poster-wide.jpg">
+<meta property="og:type" content="video.other">
+<style>
+:root{--bg:#F3F0EA;--ink:#111;--body:#333;--muted:#6b6458;--gold:#C9A961;--gold-d:#8F7337;--card:#fff;--line:#e4ddcf}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--body);font:16px/1.65 Helvetica,Arial,sans-serif;padding:0 16px}
+.wrap{max-width:880px;margin:0 auto;padding-block:28px 48px}
+.eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-d);font-weight:bold;text-align:center;margin:0 0 18px}
+.player{margin:0 auto;background:#000;border-radius:6px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+video{display:block;width:100%;height:auto;max-width:100%;background:#000}
+.v-wide{aspect-ratio:16/9} .v-tall{display:none;aspect-ratio:9/16}
+@media (max-width:639px){#overview .player{max-width:400px} #overview .v-wide{display:none} #overview .v-tall{display:block}}
+h1,h2{font-family:Georgia,'Times New Roman',serif;font-weight:normal;color:var(--ink);text-align:center;text-wrap:balance}
+h1{font-size:clamp(26px,5vw,36px);line-height:1.25;margin:30px 0 10px}
+h2{font-size:clamp(22px,4vw,28px);line-height:1.3;margin:54px 0 8px}
+.lede{text-align:center;max-width:600px;margin:0 auto 22px}
+.copy{max-width:600px;margin:0 auto}
+.chapters{max-width:600px;margin:16px auto 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}
+.chapters button{width:100%;text-align:left;font:inherit;font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:9px 12px;cursor:pointer;color:var(--body)}
+.chapters button b{color:var(--gold-d);font-variant-numeric:tabular-nums;margin-right:8px}
+.box{max-width:600px;margin:26px auto 0;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--gold);padding:20px 22px}
+.box p{margin:0 0 14px} .box p:last-child{margin:0}
+.btn{display:inline-block;padding:15px 26px;background:#0B0B0B;color:var(--gold);text-decoration:none;font-weight:bold;letter-spacing:2px;font-size:14px;border-radius:4px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:36px}
+</style></head>
+<body><div class="wrap">
+<p class="eyebrow">Signature Branding &amp; Marketing &middot; For Signature Ambassadors</p>
+
+<section id="overview">
+<div class="player">
+<video class="v-wide" controls playsinline preload="metadata" poster="poster-wide.jpg"><source src="ken-wide.mp4" type="video/mp4"></video>
+<video class="v-tall" controls playsinline preload="metadata" poster="poster-tall.jpg"><source src="ken-tall.mp4" type="video/mp4"></video>
+</div>
+<h1>One headshot. Your whole brand. Every week.</h1>
+<p class="lede"><b>Signature LiveLoop&trade; is automated personal branding for high-end brands.</b> A brand consultant, a professional photographer, a videographer, a social media manager and a publicist, working together in one system.</p>
+</section>
+
+<section id="full">
+<h2>The full walkthrough</h2>
+<p class="lede">All five jobs LiveLoop does, the plans, and what happens after someone signs up. About 16 minutes.</p>
+<div class="player"><video id="fullv" controls playsinline preload="metadata" poster="poster-full.jpg" style="aspect-ratio:16/9"><source src="liveloop-full.mp4" type="video/mp4"></video></div>
+<ul class="chapters">
+<li><button data-t="0"><b>0:00</b>Intro</button></li>
+<li><button data-t="30"><b>0:30</b>The Brand Consultant</button></li>
+<li><button data-t="225"><b>3:45</b>The Photographer</button></li>
+<li><button data-t="362"><b>6:02</b>The Videographer</button></li>
+<li><button data-t="523"><b>8:43</b>The Social Media Manager</button></li>
+<li><button data-t="691"><b>11:31</b>The Publicist</button></li>
+<li><button data-t="848"><b>14:08</b>Your Plan</button></li>
+</ul>
+</section>
+
+<div class="box">
+<p><b>Share it and get paid.</b> When someone starts LiveLoop through your ambassador link, you earn 25% of the setup fee and 15% of every monthly payment for as long as they stay. It's credited to you automatically, so there's nothing to track.</p>
+<div class="ctas"><a class="btn" href="https://signaturebranding.app/liveloop">SEE THE LIVELOOP PAGE</a></div>
+</div>
+<p class="foot">Signature Branding &amp; Marketing &middot; Kenneth Lamor Bridgett</p>
+</div>
+<script>
+var vs=document.querySelectorAll('video');vs.forEach(function(v){v.addEventListener('play',function(){vs.forEach(function(o){if(o!==v)o.pause()})})});
+var fv=document.getElementById('fullv');
+document.querySelectorAll('.chapters button').forEach(function(b){b.addEventListener('click',function(){fv.currentTime=+b.dataset.t;fv.play().catch(function(){});fv.scrollIntoView({behavior:'smooth',block:'center'})})});
+</script>
+</body></html>
