@@ -78,4 +78,5 @@ var vs=document.querySelectorAll('video');vs.forEach(function(v){v.addEventListe
 var fv=document.getElementById('fullv');
 document.querySelectorAll('.chapters button').forEach(function(b){b.addEventListener('click',function(){fv.currentTime=+b.dataset.t;fv.play().catch(function(){});fv.scrollIntoView({behavior:'smooth',block:'center'})})});
 </script>
+<script src="count.js"></script>
 </body></html>
